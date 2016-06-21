@@ -27,6 +27,8 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addWasPressed)];
     self.navigationItem.rightBarButtonItem = addButton;
     
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    
     [self.fetchedResultsController performFetch:nil];
 }
 
@@ -45,6 +47,17 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    NoteEntry *noteEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    cell.textLabel.text = noteEntry.body;
+    
+    return cell;
 }
 
 - (NSFetchRequest *) entryListFetchRequest {
