@@ -81,7 +81,9 @@
 
 - (void) addWasPressed {
     NewEntryViewController *newEntry = [[NewEntryViewController alloc] init];
-    [self.navigationController pushViewController:newEntry animated:YES];
+
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newEntry];
+    [self presentViewController:navigationController animated:YES completion: nil];
 }
 
 
