@@ -40,6 +40,7 @@
 		9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteEntryListViewController.m; path = ../NoteEntryListViewController.m; sourceTree = "<group>"; };
 		9E79728A1D18558F00CC0B1E /* NewEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEntryViewController.h; sourceTree = "<group>"; };
 		9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEntryViewController.m; sourceTree = "<group>"; };
+		9EDB0AA81D1B21B20096D188 /* BlocNotes 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BlocNotes 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,9 +331,10 @@
 		9E79726E1D172FF900CC0B1E /* BlocNotes.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				9EDB0AA81D1B21B20096D188 /* BlocNotes 2.xcdatamodel */,
 				9E79726F1D172FF900CC0B1E /* BlocNotes.xcdatamodel */,
 			);
-			currentVersion = 9E79726F1D172FF900CC0B1E /* BlocNotes.xcdatamodel */;
+			currentVersion = 9EDB0AA81D1B21B20096D188 /* BlocNotes 2.xcdatamodel */;
 			path = BlocNotes.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
