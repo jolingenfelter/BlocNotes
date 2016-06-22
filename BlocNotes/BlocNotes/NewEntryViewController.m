@@ -12,7 +12,8 @@
 
 @interface NewEntryViewController ()
 
-@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UITextView *bodyTextView;
+@property (nonatomic, strong) UITextView *titleTextView;
 
 @end
 
@@ -22,8 +23,12 @@
     [super viewDidLoad];
     
     self.title = @"New note";
-    self.textView = [[UITextView alloc] init];
+  
     
+    [self createTitleTextView];
+    [self createBodyTextView];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelWasPressed)];
     self.navigationItem.leftBarButtonItem = cancelButton;
@@ -34,7 +39,8 @@
     NSDate *noteDate;
     
     if (self.noteEntry != nil) {
-        self.textView.text = self.noteEntry.body;
+        self.bodyTextView.text = self.noteEntry.body;
+        self.titleTextView.text = self.noteEntry.title;
         noteDate = [NSDate dateWithTimeIntervalSince1970:self.noteEntry.date];
     } else {
         noteDate = [NSDate date];
@@ -42,10 +48,24 @@
     
 }
 
+- (void) createTitleTextView {
+    self.titleTextView = [[UITextView alloc] init];
+    self.titleTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 0);
+    self.titleTextView.text = @"Title goes here...";
+    self.titleTextView.textColor = [UIColor lightGrayColor];
+    self.titleTextView.textContainer.maximumNumberOfLines = 2;
+}
+
+- (void) createBodyTextView {
+    self.bodyTextView = [[UITextView alloc] init];
+    self.bodyTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 0);
+    self.bodyTextView.text = @"Write your note...";
+    self.bodyTextView.textColor = [UIColor lightGrayColor];
+}
+
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self.textView becomeFirstResponder];
+    [self.titleTextView becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,10 +76,14 @@
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    CGRect textViewRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+    CGRect titleTextViewRect = CGRectMake(0, 60, self.view.bounds.size.width, 60);
+    CGRect bodyTextViewRect = CGRectMake(0, 120, self.view.bounds.size.width, self.view.bounds.size.height);
     
-    self.textView.frame = textViewRect;
-    [self.view addSubview:self.textView];
+    self.titleTextView.frame = titleTextViewRect;
+    self.bodyTextView.frame = bodyTextViewRect;
+
+    [self.view addSubview:self.titleTextView];
+    [self.view addSubview:self.bodyTextView];
 
 }
 
@@ -84,13 +108,15 @@
 - (void) insertNote {
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
     NoteEntry *noteEntry = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:coreDataStack.managedObjectContext];
-    noteEntry.body = self.textView.text;
+    noteEntry.body = self.bodyTextView.text;
+    noteEntry.title = self.titleTextView.text;
     noteEntry.date = [[NSDate date] timeIntervalSince1970];
     [coreDataStack saveContext];
 }
 
 - (void) updateNote {
-    self.noteEntry.body = self.textView.text;
+    self.noteEntry.body = self.bodyTextView.text;
+    self.noteEntry.title = self.titleTextView.text;
     
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
     [coreDataStack saveContext];

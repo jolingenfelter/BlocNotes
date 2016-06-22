@@ -55,7 +55,11 @@
     
     NoteEntry *noteEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.textLabel.text = noteEntry.body;
+    if (noteEntry.title) {
+        cell.textLabel.text = noteEntry.title;
+    } else {
+        cell.textLabel.text = noteEntry.body;
+    }
     
     return cell;
 }
@@ -110,7 +114,7 @@
     [self presentViewController:navigationController animated:YES completion: nil];
     
     newEntry.noteEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
-}  // What's efficient way to do this?
+}  
 
 - (void) controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     switch (type) {

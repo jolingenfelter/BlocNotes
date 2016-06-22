@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSString *body;
 @property (nonatomic) NSTimeInterval date;
+@property (nullable, nonatomic, retain) NSString *title;
 
 @end
 
