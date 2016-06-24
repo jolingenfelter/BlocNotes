@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
 
     if (self.noteEntry.title) {
         self.title = self.noteEntry.title;
@@ -61,7 +62,6 @@
 
 - (void) createBodyTextView {
     self.bodyTextView = [[UITextView alloc] init];
-    self.bodyTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 0);
     self.bodyTextView.text = @"Write your note...";
     self.bodyTextView.delegate = self;
     self.bodyTextView.tag = 0;
@@ -102,8 +102,10 @@
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
+    
+    // Need to use autoconstraints, but still rather intimidated by them.
     CGRect titleTextViewRect = CGRectMake(15, 60, self.view.bounds.size.width - 30, 60);
-    CGRect bodyTextViewRect = CGRectMake(0, 120, self.view.bounds.size.width, self.view.bounds.size.height);
+    CGRect bodyTextViewRect = CGRectMake(10, 120, self.view.bounds.size.width - 10, self.view.bounds.size.height);
     
     self.titleTextField.frame = titleTextViewRect;
     self.bodyTextView.frame = bodyTextViewRect;
