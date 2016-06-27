@@ -10,9 +10,10 @@
 #import "NoteEntry.h"
 #import "CoreDataStack.h"
 
-@interface NewEntryViewController ()
+@interface NewEntryViewController () <UITextViewDelegate>
 
-@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UITextView *bodyTextView;
+@property (nonatomic, strong) UITextField *titleTextField;
 
 @end
 
@@ -21,9 +22,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"New note";
-    self.textView = [[UITextView alloc] init];
+    self.view.backgroundColor = [UIColor whiteColor];
+
+    if (self.noteEntry.title) {
+        self.title = self.noteEntry.title;
+    } else {
+         self.title = @"New note";
+    }
     
+    [self createTitleTextField];
+    [self createBodyTextView];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelWasPressed)];
     self.navigationItem.leftBarButtonItem = cancelButton;
@@ -34,18 +44,54 @@
     NSDate *noteDate;
     
     if (self.noteEntry != nil) {
-        self.textView.text = self.noteEntry.body;
-        noteDate = [NSDate dateWithTimeIntervalSince1970:self.noteEntry.date];
+        self.bodyTextView.text = self.noteEntry.body;
+        self.titleTextField.text = self.noteEntry.title;
+        noteDate = [NSDate date];
     } else {
         noteDate = [NSDate date];
     }
     
 }
 
+- (void) createTitleTextField {
+    self.titleTextField = [[UITextField alloc] init];
+    self.titleTextField.placeholder = @"Title goes here...";
+    self.titleTextField.leftViewMode = UITextFieldViewModeAlways;
+    
+}
+
+- (void) createBodyTextView {
+    self.bodyTextView = [[UITextView alloc] init];
+    self.bodyTextView.text = @"Write your note...";
+    self.bodyTextView.delegate = self;
+    self.bodyTextView.tag = 0;
+    
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
+    if ([textView.text isEqualToString:@"Write your note..."]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"Write your note...";;
+        textView.textColor = [UIColor lightGrayColor];
+    }
+    [textView resignFirstResponder];
+}
+
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self.textView becomeFirstResponder];
+    [self.titleTextField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,10 +102,22 @@
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    CGRect textViewRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     
-    self.textView.frame = textViewRect;
-    [self.view addSubview:self.textView];
+    // Need to use autoconstraints, but still rather intimidated by them.
+    CGRect titleTextViewRect = CGRectMake(15, 60, self.view.bounds.size.width - 30, 60);
+    CGRect bodyTextViewRect = CGRectMake(10, 120, self.view.bounds.size.width - 10, self.view.bounds.size.height);
+    
+    self.titleTextField.frame = titleTextViewRect;
+    self.bodyTextView.frame = bodyTextViewRect;
+
+    [self.view addSubview:self.titleTextField];
+    [self.view addSubview:self.bodyTextView];
+    
+    // Border on TitleTextField
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.frame = CGRectMake(0.0f, self.titleTextField.frame.size.height - 1, self.titleTextField.frame.size.width, 1.0f);
+    bottomBorder.backgroundColor = [UIColor lightGrayColor].CGColor;
+    [self.titleTextField.layer addSublayer:bottomBorder];
 
 }
 
@@ -84,13 +142,15 @@
 - (void) insertNote {
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
     NoteEntry *noteEntry = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:coreDataStack.managedObjectContext];
-    noteEntry.body = self.textView.text;
-    noteEntry.date = [[NSDate date] timeIntervalSince1970];
+    noteEntry.body = self.bodyTextView.text;
+    noteEntry.title = self.titleTextField.text;
+    noteEntry.date = [NSDate date];
     [coreDataStack saveContext];
 }
 
 - (void) updateNote {
-    self.noteEntry.body = self.textView.text;
+    self.noteEntry.body = self.bodyTextView.text;
+    self.noteEntry.title = self.titleTextField.text;
     
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
     [coreDataStack saveContext];

@@ -10,6 +10,11 @@
 
 @implementation NoteEntry
 
-// Insert code here to add functionality to your managed object subclass
+- (NSString *) sectionName {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM EE yy"];
+    
+    return [dateFormatter stringFromDate:self.date];
+}
 
 @end

@@ -14,10 +14,10 @@
 		9E7972751D172FF900CC0B1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7972731D172FF900CC0B1E /* LaunchScreen.storyboard */; };
 		9E79727E1D1734DA00CC0B1E /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79727D1D1734DA00CC0B1E /* CoreDataStack.m */; };
 		9E7972801D17368000CC0B1E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79727F1D17368000CC0B1E /* CoreData.framework */; };
-		9E7972851D173AD200CC0B1E /* NoteEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972821D173AD200CC0B1E /* NoteEntry+CoreDataProperties.m */; };
 		9E7972861D173AD200CC0B1E /* NoteEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972841D173AD200CC0B1E /* NoteEntry.m */; };
 		9E7972891D184E5D00CC0B1E /* NoteEntryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */; };
 		9E79728C1D18558F00CC0B1E /* NewEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */; };
+		9EDB0AAB1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EDB0AAA1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,14 +32,15 @@
 		9E79727C1D1734DA00CC0B1E /* CoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
 		9E79727D1D1734DA00CC0B1E /* CoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataStack.m; sourceTree = "<group>"; };
 		9E79727F1D17368000CC0B1E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		9E7972811D173AD200CC0B1E /* NoteEntry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NoteEntry+CoreDataProperties.h"; path = "../NoteEntry+CoreDataProperties.h"; sourceTree = "<group>"; };
-		9E7972821D173AD200CC0B1E /* NoteEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NoteEntry+CoreDataProperties.m"; path = "../NoteEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
 		9E7972831D173AD200CC0B1E /* NoteEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteEntry.h; path = ../NoteEntry.h; sourceTree = "<group>"; };
 		9E7972841D173AD200CC0B1E /* NoteEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteEntry.m; path = ../NoteEntry.m; sourceTree = "<group>"; };
 		9E7972871D184E5D00CC0B1E /* NoteEntryListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteEntryListViewController.h; path = ../NoteEntryListViewController.h; sourceTree = "<group>"; };
 		9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteEntryListViewController.m; path = ../NoteEntryListViewController.m; sourceTree = "<group>"; };
 		9E79728A1D18558F00CC0B1E /* NewEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEntryViewController.h; sourceTree = "<group>"; };
 		9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEntryViewController.m; sourceTree = "<group>"; };
+		9EDB0AA81D1B21B20096D188 /* BlocNotes 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BlocNotes 2.xcdatamodel"; sourceTree = "<group>"; };
+		9EDB0AA91D1B58DB0096D188 /* NoteEntry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NoteEntry+CoreDataProperties.h"; path = "../NoteEntry+CoreDataProperties.h"; sourceTree = "<group>"; };
+		9EDB0AAA1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NoteEntry+CoreDataProperties.m"; path = "../NoteEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +77,8 @@
 			children = (
 				9E7972871D184E5D00CC0B1E /* NoteEntryListViewController.h */,
 				9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */,
-				9E7972811D173AD200CC0B1E /* NoteEntry+CoreDataProperties.h */,
-				9E7972821D173AD200CC0B1E /* NoteEntry+CoreDataProperties.m */,
+				9EDB0AA91D1B58DB0096D188 /* NoteEntry+CoreDataProperties.h */,
+				9EDB0AAA1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m */,
 				9E7972831D173AD200CC0B1E /* NoteEntry.h */,
 				9E7972841D173AD200CC0B1E /* NoteEntry.m */,
 				9E79728A1D18558F00CC0B1E /* NewEntryViewController.h */,
@@ -175,8 +176,8 @@
 				9E79727E1D1734DA00CC0B1E /* CoreDataStack.m in Sources */,
 				9E7972671D172FF900CC0B1E /* AppDelegate.m in Sources */,
 				9E7972641D172FF900CC0B1E /* main.m in Sources */,
-				9E7972851D173AD200CC0B1E /* NoteEntry+CoreDataProperties.m in Sources */,
 				9E7972891D184E5D00CC0B1E /* NoteEntryListViewController.m in Sources */,
+				9EDB0AAB1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m in Sources */,
 				9E7972861D173AD200CC0B1E /* NoteEntry.m in Sources */,
 				9E79728C1D18558F00CC0B1E /* NewEntryViewController.m in Sources */,
 				9E7972701D172FF900CC0B1E /* BlocNotes.xcdatamodeld in Sources */,
@@ -330,9 +331,10 @@
 		9E79726E1D172FF900CC0B1E /* BlocNotes.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				9EDB0AA81D1B21B20096D188 /* BlocNotes 2.xcdatamodel */,
 				9E79726F1D172FF900CC0B1E /* BlocNotes.xcdatamodel */,
 			);
-			currentVersion = 9E79726F1D172FF900CC0B1E /* BlocNotes.xcdatamodel */;
+			currentVersion = 9EDB0AA81D1B21B20096D188 /* BlocNotes 2.xcdatamodel */;
 			path = BlocNotes.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
