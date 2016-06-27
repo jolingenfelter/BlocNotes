@@ -39,7 +39,10 @@
     self.navigationItem.leftBarButtonItem = cancelButton;
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveWasPressed)];
-    self.navigationItem.rightBarButtonItem = saveButton;
+    
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareWasPressed)];
+    
+    [self.navigationItem setRightBarButtonItems: @[saveButton, shareButton]];
     
     NSDate *noteDate;
     
@@ -137,6 +140,24 @@
     }
     
     [self dismissSelf];
+}
+
+- (void) shareWasPressed {
+   
+    NSMutableArray *itemsToShare = [[NSMutableArray alloc] init];
+    
+    if (self.titleTextField.text.length > 0) {
+        [itemsToShare addObject:self.titleTextField.text];
+    }
+    
+    if (self.bodyTextView.text.length > 0) {
+        [itemsToShare addObject:self.bodyTextView.text];
+    }
+    
+    if (itemsToShare.count > 0) {
+        UIActivityViewController *shareNoteVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+        [self presentViewController:shareNoteVC animated:YES completion:nil];
+    }
 }
 
 - (void) insertNote {
