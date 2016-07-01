@@ -39,7 +39,10 @@
     self.navigationItem.leftBarButtonItem = cancelButton;
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveWasPressed)];
-    self.navigationItem.rightBarButtonItem = saveButton;
+    
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareWasPressed)];
+    
+    [self.navigationItem setRightBarButtonItems: @[saveButton, shareButton]];
     
     NSDate *noteDate;
     
@@ -51,12 +54,40 @@
         noteDate = [NSDate date];
     }
     
+    UIView *separator = [[UIView alloc] init];
+    separator.backgroundColor = [UIColor blackColor];
+    separator.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview: separator];
+    
+    NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_titleTextField, _bodyTextView, separator);
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleTextField]|" options:kNilOptions metrics:nil views:viewDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bodyTextView]|" options:kNilOptions metrics:nil views:viewDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[separator]|" options:kNilOptions metrics:nil views:viewDictionary]];
+    
+    [self.view addConstraint: [NSLayoutConstraint constraintWithItem:separator attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0.5]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:separator attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleTextField attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    
+    [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.titleTextField attribute:NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.titleTextField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:60]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:separator attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+
+    
 }
 
 - (void) createTitleTextField {
     self.titleTextField = [[UITextField alloc] init];
     self.titleTextField.placeholder = @"Title goes here...";
     self.titleTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.titleTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.titleTextField];
     
 }
 
@@ -65,6 +96,8 @@
     self.bodyTextView.text = @"Write your note...";
     self.bodyTextView.delegate = self;
     self.bodyTextView.tag = 0;
+    self.bodyTextView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.bodyTextView];
     
 }
 
@@ -99,28 +132,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    
-    // Need to use autoconstraints, but still rather intimidated by them.
-    CGRect titleTextViewRect = CGRectMake(15, 60, self.view.bounds.size.width - 30, 60);
-    CGRect bodyTextViewRect = CGRectMake(10, 120, self.view.bounds.size.width - 10, self.view.bounds.size.height);
-    
-    self.titleTextField.frame = titleTextViewRect;
-    self.bodyTextView.frame = bodyTextViewRect;
-
-    [self.view addSubview:self.titleTextField];
-    [self.view addSubview:self.bodyTextView];
-    
-    // Border on TitleTextField
-    CALayer *bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0.0f, self.titleTextField.frame.size.height - 1, self.titleTextField.frame.size.width, 1.0f);
-    bottomBorder.backgroundColor = [UIColor lightGrayColor].CGColor;
-    [self.titleTextField.layer addSublayer:bottomBorder];
-
-}
-
 - (void) dismissSelf {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -137,6 +148,24 @@
     }
     
     [self dismissSelf];
+}
+
+- (void) shareWasPressed {
+   
+    NSMutableArray *itemsToShare = [[NSMutableArray alloc] init];
+    
+    if (self.titleTextField.text.length > 0) {
+        [itemsToShare addObject:self.titleTextField.text];
+    }
+    
+    if (self.bodyTextView.text.length > 0) {
+        [itemsToShare addObject:self.bodyTextView.text];
+    }
+    
+    if (itemsToShare.count > 0) {
+        UIActivityViewController *shareNoteVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+        [self presentViewController:shareNoteVC animated:YES completion:nil];
+    }
 }
 
 - (void) insertNote {
