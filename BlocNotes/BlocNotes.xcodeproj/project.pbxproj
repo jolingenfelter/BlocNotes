@@ -18,9 +18,11 @@
 		9E7972891D184E5D00CC0B1E /* NoteEntryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */; };
 		9E79728C1D18558F00CC0B1E /* NewEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */; };
 		9EDB0AAB1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EDB0AAA1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m */; };
-		9EEC3EC31D26FEE8001753BE /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEC3EC21D26FEE8001753BE /* ShareViewController.m */; };
 		9EEC3EC61D26FEE8001753BE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EEC3EC41D26FEE8001753BE /* MainInterface.storyboard */; };
 		9EEC3ECA1D26FEE8001753BE /* AddToBlocNotes.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9EEC3EBF1D26FEE8001753BE /* AddToBlocNotes.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9EEC3ED91D28693F001753BE /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEC3EC21D26FEE8001753BE /* ShareViewController.m */; };
+		9EEC3EDA1D286946001753BE /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79727D1D1734DA00CC0B1E /* CoreDataStack.m */; };
+		9EEC3EDB1D286C64001753BE /* NoteEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972841D173AD200CC0B1E /* NoteEntry.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,7 +275,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EEC3EC31D26FEE8001753BE /* ShareViewController.m in Sources */,
+				9EEC3EDB1D286C64001753BE /* NoteEntry.m in Sources */,
+				9EEC3EDA1D286946001753BE /* CoreDataStack.m in Sources */,
+				9EEC3ED91D28693F001753BE /* ShareViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +477,7 @@
 				9EEC3ECC1D26FEE8001753BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

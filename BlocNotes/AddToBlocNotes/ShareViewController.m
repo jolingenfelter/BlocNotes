@@ -7,6 +7,8 @@
 //
 
 #import "ShareViewController.h"
+#import "CoreDataStack.h"
+#import "NoteEntry.h"
 
 @interface ShareViewController ()
 
@@ -20,10 +22,26 @@
 }
 
 - (void)didSelectPost {
-    // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
+    NSExtensionItem *inputItem = self.extensionContext.inputItems.firstObject;
+    NSExtensionItem *outputItem = [inputItem copy];
+    outputItem.attributedContentText = [[NSAttributedString alloc] initWithString:self.contentText attributes:nil];
+     NSArray *outputItems = @[outputItem];
+    [self.extensionContext completeRequestReturningItems:outputItems completionHandler:nil];
     
-    // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-    [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
+    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    
+    NSManagedObjectContext *context = coreDataStack.managedObjectContext;
+    NoteEntry *newSharedNote = [[NoteEntry alloc] init];
+    newSharedNote = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:context];
+    
+    newSharedNote.title = @"Note";
+    newSharedNote.body = self.contentText;
+    newSharedNote.date = [NSDate date];
+    
+    NSError *error;
+    [context save:&error];
+    
+    
 }
 
 - (NSArray *)configurationItems {
