@@ -50,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9E47C9F31D29F95800B4EAD3 /* BlocNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlocNotes.entitlements; sourceTree = "<group>"; };
 		9E72D9DF1D29DEEB00F65145 /* AddToBlocNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AddToBlocNotes.entitlements; sourceTree = "<group>"; };
 		9E79725F1D172FF900CC0B1E /* BlocNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7972631D172FF900CC0B1E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -119,6 +120,7 @@
 		9E7972611D172FF900CC0B1E /* BlocNotes */ = {
 			isa = PBXGroup;
 			children = (
+				9E47C9F31D29F95800B4EAD3 /* BlocNotes.entitlements */,
 				9E7972871D184E5D00CC0B1E /* NoteEntryListViewController.h */,
 				9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */,
 				9EDB0AA91D1B58DB0096D188 /* NoteEntry+CoreDataProperties.h */,
@@ -211,6 +213,11 @@
 					9E79725E1D172FF900CC0B1E = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 2K6RX929EU;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					9EEC3EBE1D26FEE8001753BE = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -406,11 +413,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BlocNotes/BlocNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BlocNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jolingenfelter.BlocNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lingenfelter.BlocNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -420,11 +428,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BlocNotes/BlocNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BlocNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jolingenfelter.BlocNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lingenfelter.BlocNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
