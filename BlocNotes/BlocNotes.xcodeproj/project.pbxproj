@@ -50,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9E72D9DF1D29DEEB00F65145 /* AddToBlocNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AddToBlocNotes.entitlements; sourceTree = "<group>"; };
 		9E79725F1D172FF900CC0B1E /* BlocNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7972631D172FF900CC0B1E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9E7972651D172FF900CC0B1E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -150,6 +151,7 @@
 		9EEC3EC01D26FEE8001753BE /* AddToBlocNotes */ = {
 			isa = PBXGroup;
 			children = (
+				9E72D9DF1D29DEEB00F65145 /* AddToBlocNotes.entitlements */,
 				9EEC3EC11D26FEE8001753BE /* ShareViewController.h */,
 				9EEC3EC21D26FEE8001753BE /* ShareViewController.m */,
 				9EEC3EC41D26FEE8001753BE /* MainInterface.storyboard */,
@@ -213,6 +215,11 @@
 					9EEC3EBE1D26FEE8001753BE = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 2K6RX929EU;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -426,6 +433,7 @@
 		9EEC3ECB1D26FEE8001753BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AddToBlocNotes/AddToBlocNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AddToBlocNotes/Info.plist;
@@ -439,6 +447,7 @@
 		9EEC3ECC1D26FEE8001753BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AddToBlocNotes/AddToBlocNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AddToBlocNotes/Info.plist;
