@@ -10,9 +10,14 @@
 #import "CoreDataStack.h"
 #import "NoteEntry.h"
 #import "NewEntryViewController.h"
+#import "SearchResultsTableViewController.h"
 
 
-@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate>
+@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
+
+@property (nonatomic, strong) NSFetchRequest *searchFetchRequest;
+@property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic, strong) SearchResultsTableViewController *resultsTableViewController;
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
@@ -30,6 +35,10 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
     [self.fetchedResultsController performFetch:nil];
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableViewController];
+    [self.searchController.searchBar self];
+    self.tableView.tableHeaderView = self.searchController.searchBar;
 }
 
 - (void)didReceiveMemoryWarning {
