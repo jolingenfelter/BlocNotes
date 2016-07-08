@@ -36,11 +36,21 @@
     
     [self.fetchedResultsController performFetch:nil];
     
+    [self createSearchController];
+    
+    
+}
+
+- (void) createSearchController {
+    
+    self.resultsTableViewController = [[SearchResultsTableViewController alloc] init];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableViewController];
     [self.searchController.searchBar self];
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.searchController.delegate = self;
-    
+//    self.searchController.searchResultsUpdater = self;
+////    self.resultsTableViewController.tableView.dataSource = self;
+////    self.resultsTableViewController.tableView.delegate = self;
     
 }
 
