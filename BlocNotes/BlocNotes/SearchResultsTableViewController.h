@@ -10,6 +10,6 @@
 
 @interface SearchResultsTableViewController : UITableViewController
 
-@property(nonatomic, strong) NSMutableArray *filteredList;
+@property(nonatomic, strong) NSArray *filteredList;
 
 @end

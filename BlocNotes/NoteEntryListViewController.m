@@ -39,6 +39,9 @@
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableViewController];
     [self.searchController.searchBar self];
     self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.searchController.delegate = self;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -162,11 +165,47 @@
     [self.tableView endUpdates];
 }
 
+# pragma mark - Searching
 
+- (NSFetchRequest *)searchFetchRequest {
+    if (_searchFetchRequest != nil) {
+        return _searchFetchRequest;
+    }
+   
+    CoreDataStack *coreDataStack = [[CoreDataStack alloc] init];
+    _searchFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"NoteEntry" inManagedObjectContext:coreDataStack.managedObjectContext];
+    [_searchFetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+    [_searchFetchRequest setSortDescriptors:sortDescriptors];
+    
+    return _searchFetchRequest;
+}
 
-
-
-
+- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *searchString = searchController.searchBar.text;
+    
+    if (searchString) {
+        NSString *predicateFormat = @"%K CONTAINS[cd] OR %K CONTAINS[cd] %@";
+        NSString *searchAttributeTitle = @"title";
+        NSString *searchAttributeBody = @"body";
+        
+        NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:predicateFormat, searchAttributeBody, searchAttributeTitle];
+        [self.searchFetchRequest setPredicate:searchPredicate];
+        
+        NSError *error = nil;
+        
+        CoreDataStack *coreDataStack = [[CoreDataStack alloc] init];
+        
+        NSArray *searchResults = [coreDataStack.managedObjectContext executeFetchRequest:self.searchFetchRequest error:&error];
+        
+        SearchResultsTableViewController *resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
+        resultsTableViewController.filteredList = searchResults;
+        [resultsTableViewController.tableView reloadData];
+    }
+}
 
 
 
