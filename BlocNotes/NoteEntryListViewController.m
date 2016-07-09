@@ -177,9 +177,6 @@
 # pragma mark - Searching
 
 - (NSFetchRequest *)searchFetchRequest {
-    if (_searchFetchRequest != nil) {
-        return _searchFetchRequest;
-    }
    
     CoreDataStack *coreDataStack = [[CoreDataStack alloc] init];
     _searchFetchRequest = [[NSFetchRequest alloc] init];
@@ -195,10 +192,9 @@
 
 - (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
-    NSString *noteTitleAttribute = @"title";
-    NSString *noteBodyAttribute = @"body";
+    NoteEntry *note = [[NoteEntry alloc] init];
     
-    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", noteTitleAttribute, searchText, noteBodyAttribute, searchText];
+    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", note.title, searchText, note.body, searchText];
     
     [self.searchFetchRequest setPredicate:searchPredicate];
     
