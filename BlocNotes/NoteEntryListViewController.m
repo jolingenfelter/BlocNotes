@@ -13,7 +13,7 @@
 #import "SearchResultsTableViewController.h"
 
 
-@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
+@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) NSFetchRequest *searchFetchRequest;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -44,13 +44,9 @@
     
     self.resultsTableViewController = [[SearchResultsTableViewController alloc] init];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableViewController];
-    [self.searchController.searchBar self];
     self.tableView.tableHeaderView = self.searchController.searchBar;
-    self.searchController.delegate = self;
-    self.searchController.searchResultsUpdater = self;
-    self.resultsTableViewController.tableView.dataSource = self;
-    self.resultsTableViewController.tableView.delegate = self;
-    
+//    self.searchController.delegate = self;
+//    self.searchController.searchResultsUpdater = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -175,41 +171,19 @@
 
 # pragma mark - Searching
 
-//- (NSFetchRequest *)searchFetchRequest {
-//   
-//    CoreDataStack *coreDataStack = [[CoreDataStack alloc] init];
-//    _searchFetchRequest = [[NSFetchRequest alloc] init];
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"NoteEntry" inManagedObjectContext:coreDataStack.managedObjectContext];
-//    [_searchFetchRequest setEntity:entity];
-//    
-//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-//    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
-//    [_searchFetchRequest setSortDescriptors:sortDescriptors];
-//    
-//    return _searchFetchRequest;
-//}
-//
-//- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
-//    
+
+- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
 //    NSString *searchText = searchController.searchBar.text;
-//    NSString *searchAttributeTitle = @"title";
-//    NSString *searchAttributeBody = @"Body";
+//    NSString *noteTitleAttribute = @"title";
+//    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@", noteTitleAttribute,searchText];
 //    
-//    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", searchAttributeTitle, searchText, searchAttributeBody, searchText];
+//    NSArray *searchResults = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:searchPredicate];
 //    
-//    [self.searchFetchRequest setPredicate:searchPredicate];
-//    
-//    NSError *error = nil;
-//    
-//    CoreDataStack *coreDataStack = [[CoreDataStack alloc] init];
-//    
-//    NSArray *searchResults = [coreDataStack.managedObjectContext executeFetchRequest:self.searchFetchRequest error:&error];
-//    
-//    self.resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
+////    self.resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
 //    self.resultsTableViewController.filteredList = searchResults;
 //    [self.resultsTableViewController.tableView reloadData];
-//
-//}
+
+}
 
 
 
