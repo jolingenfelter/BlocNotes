@@ -48,9 +48,9 @@
     [self.searchController.searchBar self];
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.searchController.delegate = self;
-//    self.searchController.searchResultsUpdater = self;
-////    self.resultsTableViewController.tableView.dataSource = self;
-////    self.resultsTableViewController.tableView.delegate = self;
+    self.searchController.searchResultsUpdater = self;
+    self.resultsTableViewController.tableView.dataSource = self;
+    self.resultsTableViewController.tableView.delegate = self;
     
 }
 
@@ -194,27 +194,29 @@
     return _searchFetchRequest;
 }
 
-- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSString *searchString = searchController.searchBar.text;
+- (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
-    if (searchString) {
-        NSString *predicateFormat = @"%K CONTAINS[cd] OR %K CONTAINS[cd] %@";
-        NSString *searchAttributeTitle = @"title";
-        NSString *searchAttributeBody = @"body";
-        
-        NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:predicateFormat, searchAttributeBody, searchAttributeTitle];
-        [self.searchFetchRequest setPredicate:searchPredicate];
-        
-        NSError *error = nil;
-        
-        CoreDataStack *coreDataStack = [[CoreDataStack alloc] init];
-        
-        NSArray *searchResults = [coreDataStack.managedObjectContext executeFetchRequest:self.searchFetchRequest error:&error];
-        
-        SearchResultsTableViewController *resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
-        resultsTableViewController.filteredList = searchResults;
-        [resultsTableViewController.tableView reloadData];
-    }
+    NSString *searchString = searchBar.text;
+    
+    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", searchString];
+    
+    [self.searchFetchRequest setPredicate:searchPredicate];
+    
+    NSError *error = nil;
+    
+    CoreDataStack *coreDataStack = [[CoreDataStack alloc] init];
+    
+    NSArray *searchResults = [coreDataStack.managedObjectContext executeFetchRequest:self.searchFetchRequest error:&error];
+    
+    SearchResultsTableViewController *resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
+    resultsTableViewController.filteredList = searchResults;
+    [resultsTableViewController.tableView reloadData];
+
+    
+}
+
+- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
+
 }
 
 

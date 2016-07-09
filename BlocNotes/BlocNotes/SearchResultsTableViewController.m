@@ -11,6 +11,11 @@
 
 @implementation SearchResultsTableViewController
 
+- (void) viewDidLoad {
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+}
+
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
@@ -23,7 +28,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath: indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath: indexPath];
     
     NoteEntry *searchedNote = [self.filteredList objectAtIndex:indexPath.row];
     cell.textLabel.text = searchedNote.title;
