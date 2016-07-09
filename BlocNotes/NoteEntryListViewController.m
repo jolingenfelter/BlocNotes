@@ -38,7 +38,6 @@
     
     [self createSearchController];
     
-    
 }
 
 - (void) createSearchController {
@@ -187,7 +186,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"NoteEntry" inManagedObjectContext:coreDataStack.managedObjectContext];
     [_searchFetchRequest setEntity:entity];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     [_searchFetchRequest setSortDescriptors:sortDescriptors];
     
@@ -196,11 +195,16 @@
 
 - (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
-    NSString *searchString = searchBar.text;
+    NSString *noteTitleAttribute = @"title";
+    NSString *noteBodyAttribute = @"body";
     
-    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", searchString];
+    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", noteTitleAttribute, searchText, noteBodyAttribute, searchText];
     
     [self.searchFetchRequest setPredicate:searchPredicate];
+    
+}
+
+- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
     
     NSError *error = nil;
     
@@ -211,11 +215,6 @@
     SearchResultsTableViewController *resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
     resultsTableViewController.filteredList = searchResults;
     [resultsTableViewController.tableView reloadData];
-
-    
-}
-
-- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
 
 }
 
