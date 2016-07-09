@@ -190,17 +190,15 @@
     return _searchFetchRequest;
 }
 
-- (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
     
-    NoteEntry *note = [[NoteEntry alloc] init];
+    NSString *searchText = searchController.searchBar.text;
+    NSString *searchAttributeTitle = @"title";
+    NSString *searchAttributeBody = @"Body";
     
-    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", note.title, searchText, note.body, searchText];
+    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", searchAttributeTitle, searchText, searchAttributeBody, searchText];
     
     [self.searchFetchRequest setPredicate:searchPredicate];
-    
-}
-
-- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
     
     NSError *error = nil;
     
