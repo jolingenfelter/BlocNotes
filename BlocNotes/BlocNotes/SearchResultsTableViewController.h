@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchResultsTableViewController : UITableViewController
+@interface SearchResultsTableViewController : UITableViewController 
 
 @property(nonatomic, strong) NSArray *filteredList;
 
