@@ -14,7 +14,9 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    self.filteredList = [[NSArray alloc] init];
+    
+    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 
 }
 

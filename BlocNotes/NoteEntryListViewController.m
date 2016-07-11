@@ -13,9 +13,8 @@
 #import "SearchResultsTableViewController.h"
 
 
-@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchBarDelegate>
+@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
 
-@property (nonatomic, strong) NSFetchRequest *searchFetchRequest;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) SearchResultsTableViewController *resultsTableViewController;
 
@@ -41,12 +40,12 @@
 }
 
 - (void) createSearchController {
-    
     self.resultsTableViewController = [[SearchResultsTableViewController alloc] init];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableViewController];
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchResultsUpdater = self;
     self.tableView.tableHeaderView = self.searchController.searchBar;
-//    self.searchController.delegate = self;
-//    self.searchController.searchResultsUpdater = self;
+    self.definesPresentationContext = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -173,15 +172,16 @@
 
 
 - (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
-//    NSString *searchText = searchController.searchBar.text;
-//    NSString *noteTitleAttribute = @"title";
-//    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@", noteTitleAttribute,searchText];
-//    
-//    NSArray *searchResults = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:searchPredicate];
-//    
-////    self.resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
-//    self.resultsTableViewController.filteredList = searchResults;
-//    [self.resultsTableViewController.tableView reloadData];
+    NSString *searchText = searchController.searchBar.text;
+    NSString *noteTitleAttribute = @"title";
+    NSString *noteBodyAttribute = @"title";
+    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", noteTitleAttribute, searchText, noteBodyAttribute, searchText];
+    
+    NSArray *searchResults = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:searchPredicate];
+    
+    self.resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
+    self.resultsTableViewController.filteredList = searchResults;
+    [self.resultsTableViewController.tableView reloadData];
 
 }
 
