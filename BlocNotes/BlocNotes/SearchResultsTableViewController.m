@@ -36,6 +36,7 @@
     
     NoteEntry *searchedNote = [self.filteredList objectAtIndex:indexPath.row];
     cell.textLabel.text = searchedNote.title;
+    cell.textLabel.font= [UIFont boldSystemFontOfSize:16];
     
     
     return cell;
