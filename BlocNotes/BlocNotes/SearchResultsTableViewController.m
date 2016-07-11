@@ -8,15 +8,15 @@
 
 #import "SearchResultsTableViewController.h"
 #import "NoteEntry.h"
+#import "NewEntryViewController.h"
 
 @implementation SearchResultsTableViewController
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+
     
-    self.filteredList = [[NSArray alloc] init];
-    
-    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 
 }
 
@@ -39,6 +39,15 @@
     
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NewEntryViewController *entry = [[NewEntryViewController alloc] init];
+    entry.noteEntry = [self.filteredList objectAtIndex:indexPath.row];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:entry];
+    [self presentViewController:navigationController animated:YES completion: nil];
+
 }
 
 @end

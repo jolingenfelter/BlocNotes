@@ -174,12 +174,11 @@
 - (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSString *searchText = searchController.searchBar.text;
     NSString *noteTitleAttribute = @"title";
-    NSString *noteBodyAttribute = @"title";
+    NSString *noteBodyAttribute = @"body";
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", noteTitleAttribute, searchText, noteBodyAttribute, searchText];
     
     NSArray *searchResults = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:searchPredicate];
     
-    self.resultsTableViewController = (SearchResultsTableViewController *)self.searchController.searchResultsController;
     self.resultsTableViewController.filteredList = searchResults;
     [self.resultsTableViewController.tableView reloadData];
 
