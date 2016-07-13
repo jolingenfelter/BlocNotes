@@ -13,7 +13,7 @@
 #import "SearchResultsTableViewController.h"
 
 
-@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
+@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate, UISearchResultsUpdating>
 
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) SearchResultsTableViewController *resultsTableViewController;
@@ -39,10 +39,16 @@
     
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    NSString *searchText = self.searchController.searchBar.text;
+    if (searchText) {
+        [self updateSearchResultsForSearchController:self.searchController];
+    }
+}
+
 - (void) createSearchController {
     self.resultsTableViewController = [[SearchResultsTableViewController alloc] init];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableViewController];
-    self.searchController.searchBar.delegate = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchResultsUpdater = self;
     self.tableView.tableHeaderView = self.searchController.searchBar;
