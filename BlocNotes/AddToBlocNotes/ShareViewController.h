@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Social/Social.h>
+#import "NewEntryViewController.h"
 
-@interface ShareViewController : SLComposeServiceViewController
+@interface ShareViewController : NewEntryViewController
 
 @end

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E6E93E91D370B7D00181BED /* BlocNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E79726E1D172FF900CC0B1E /* BlocNotes.xcdatamodeld */; };
+		9E6E93EA1D37156500181BED /* NewEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */; };
 		9E7972641D172FF900CC0B1E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972631D172FF900CC0B1E /* main.m */; };
 		9E7972671D172FF900CC0B1E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972661D172FF900CC0B1E /* AppDelegate.m */; };
 		9E7972701D172FF900CC0B1E /* BlocNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E79726E1D172FF900CC0B1E /* BlocNotes.xcdatamodeld */; };
@@ -292,6 +294,8 @@
 				9EEC3EDB1D286C64001753BE /* NoteEntry.m in Sources */,
 				9EEC3EDA1D286946001753BE /* CoreDataStack.m in Sources */,
 				9EEC3ED91D28693F001753BE /* ShareViewController.m in Sources */,
+				9E6E93E91D370B7D00181BED /* BlocNotes.xcdatamodeld in Sources */,
+				9E6E93EA1D37156500181BED /* NewEntryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

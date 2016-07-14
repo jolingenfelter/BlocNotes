@@ -32,6 +32,17 @@
     [self.fetchedResultsController performFetch:nil];
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataDidChangeNotification:) name:NSPersistentStoreCoordinatorStoresDidChangeNotification  object:[[CoreDataStack defaultStack] persistentStoreCoordinator]];
+}
+
+//- (void) viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSPersistentStoreCoordinatorStoresDidChangeNotification object:[[CoreDataStack defaultStack] persistentStoreCoordinator]];
+//}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -153,7 +164,9 @@
     [self.tableView endUpdates];
 }
 
-
+- (void) dataDidChangeNotification:(NSNotification *)notification {
+    NSLog(@"Data did change");
+}
 
 
 
