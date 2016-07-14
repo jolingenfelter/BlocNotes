@@ -14,7 +14,7 @@
 
 @property(nonatomic, strong) NSExtensionItem *inputItem;
 @property(nonatomic, strong) NSExtensionItem *outputItem;
-@property(nonatomic, strong) UINavigationController *navController;
+@property(nonatomic, strong) UINavigationBar *navBar;
 
 @end
 
@@ -22,17 +22,25 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Add To BlocNotes";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navController = [[UINavigationController alloc] init];
-    self.navController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelWasPressed)];
-    self.navController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveWasPressed)];
+    CGRect navBarFrame = CGRectMake(0, 0, self.view.bounds.size.width, 60);
+    self.navBar = [[UINavigationBar alloc] initWithFrame: navBarFrame];
+
+    self.navBar.backgroundColor = [UIColor purpleColor];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelWasPressed)];
+    UIBarButtonItem *saveButton= [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveWasPressed)];
+    
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    self.navigationItem.rightBarButtonItem = saveButton;
     
     self.inputItem = [[NSExtensionItem alloc] init];
     self.outputItem = [[NSExtensionItem alloc] init];
 }
 
 - (void) viewDidLayoutSubviews {
-    [self.view addSubview:self.navController.navigationBar];
+    [self.view addSubview:self.navBar];
 }
 
 - (void) cancelWasPressed {
