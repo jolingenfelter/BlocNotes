@@ -10,11 +10,14 @@
 #import "CoreDataStack.h"
 #import "NoteEntry.h"
 
-@interface ShareViewController ()
+@interface ShareViewController () <UITextViewDelegate>
 
 @property(nonatomic, strong) NSExtensionItem *inputItem;
 @property(nonatomic, strong) NSExtensionItem *outputItem;
+
 @property(nonatomic, strong) UINavigationBar *navBar;
+@property (nonatomic, strong) UITextView *bodyTextView;
+@property (nonatomic, strong) UITextField *titleTextField;
 
 @end
 
@@ -22,26 +25,99 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Add To BlocNotes";
     self.view.backgroundColor = [UIColor whiteColor];
+    
     CGRect navBarFrame = CGRectMake(0, 0, self.view.bounds.size.width, 60);
     self.navBar = [[UINavigationBar alloc] initWithFrame: navBarFrame];
-
+    [self.view addSubview:self.navBar];
     self.navBar.backgroundColor = [UIColor purpleColor];
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelWasPressed)];
-    UIBarButtonItem *saveButton= [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveWasPressed)];
+//    UIView *separator = [[UIView alloc] init];
+//    separator.backgroundColor = [UIColor blackColor];
+//    separator.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.view addSubview: separator];
+//    
+//    NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_navBar, _titleTextField, _bodyTextView, separator);
+//    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_navBar]|" options:kNilOptions metrics:nil views:viewDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleTextField]|" options:kNilOptions metrics:nil views:viewDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bodyTextView]|" options:kNilOptions metrics:nil views:viewDictionary]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[separator]|" options:kNilOptions metrics:nil views:viewDictionary]];
+//    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.navBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:60]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.navBar attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+//    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.titleTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.titleTextField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:60]];
+//    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:separator attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleTextField attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:separator attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0.5]];
+//    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:separator attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+//    
+//    [self createTitleTextField];
+//    [self createBodyTextView];
     
-    self.navigationItem.leftBarButtonItem = cancelButton;
-    self.navigationItem.rightBarButtonItem = saveButton;
-    
+//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelWasPressed)];
+//    UIBarButtonItem *saveButton= [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveWasPressed)];
+//
+//    //[self.navBar setItems:@[cancelButton, saveButton]];
+//    
     self.inputItem = [[NSExtensionItem alloc] init];
     self.outputItem = [[NSExtensionItem alloc] init];
 }
 
-- (void) viewDidLayoutSubviews {
-    [self.view addSubview:self.navBar];
+- (void) createTitleTextField {
+    self.titleTextField = [[UITextField alloc] init];
+    self.titleTextField.placeholder = @"Title goes here...";
+    self.titleTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.titleTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.titleTextField];
+    
 }
+
+- (void) createBodyTextView {
+    self.bodyTextView = [[UITextView alloc] init];
+    self.bodyTextView.text = @"Write your note...";
+    self.bodyTextView.delegate = self;
+    self.bodyTextView.tag = 0;
+    self.bodyTextView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.bodyTextView];
+    
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
+    if ([textView.text isEqualToString:@"Write your note..."]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+    }
+    
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"Write your note...";;
+        textView.textColor = [UIColor lightGrayColor];
+    }
+    [textView resignFirstResponder];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.titleTextField becomeFirstResponder];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 
 - (void) cancelWasPressed {
     [self dismissSelf];
