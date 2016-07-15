@@ -12,6 +12,7 @@
 
 @interface ShareViewController () <UITextViewDelegate>
 
+@property(nonatomic, strong) NSExtensionContext *extensionContext;
 @property(nonatomic, strong) NSExtensionItem *inputItem;
 @property(nonatomic, strong) NSExtensionItem *outputItem;
 
@@ -22,6 +23,11 @@
 @end
 
 @implementation ShareViewController
+
+- (BOOL)isContentValid {
+    // Do validation of contentText and/or NSExtensionContext attachments here
+    return YES;
+}
 
 - (void) viewDidLoad {
     [super viewDidLoad];
@@ -78,9 +84,16 @@
     navigationItem.leftBarButtonItem = cancelButton;
 
     [self.navBar setItems:@[navigationItem]];
-
+    
+    self.extensionContext = [[NSExtensionContext alloc] init];
     self.inputItem = [[NSExtensionItem alloc] init];
     self.outputItem = [[NSExtensionItem alloc] init];
+}
+
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.titleTextField becomeFirstResponder];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -104,11 +117,6 @@
     [textView resignFirstResponder];
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.titleTextField becomeFirstResponder];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -116,7 +124,11 @@
 
 
 - (void) cancelWasPressed {
-    
+    [UIView animateWithDuration:0.20 animations:^{
+        self.view.transform = CGAffineTransformMakeTranslation(0, self.view.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self.extensionContext completeRequestReturningItems:nil completionHandler:nil];
+    }];
 }
 
 - (void) saveWasPressed {
@@ -129,38 +141,14 @@
 //    NSManagedObjectContext *context = [CoreDataStack defaultStack].managedObjectContext;
 //    NoteEntry *newSharedNote = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:context];
 //    
-//    newSharedNote.title = @"Note";
-//    newSharedNote.body = self.contentText;
+//    newSharedNote.title = newSharedNote.title;
+//    newSharedNote.body = newSharedNote.body;
 //    newSharedNote.date = [NSDate date];
 //    
 //    NSError *error;
 //    [context save:&error];
 }
 
-//- (BOOL)isContentValid {
-//    // Do validation of contentText and/or NSExtensionContext attachments here
-//    return YES;
-//}
-//
-//- (void)didSelectPost {
-//    NSExtensionItem *inputItem = self.extensionContext.inputItems.firstObject;
-//    NSExtensionItem *outputItem = [inputItem copy];
-//    outputItem.attributedContentText = [[NSAttributedString alloc] initWithString:self.contentText attributes:nil];
-//     NSArray *outputItems = @[outputItem];
-//    [self.extensionContext completeRequestReturningItems:outputItems completionHandler:nil];
-//    
-//    NSManagedObjectContext *context = [CoreDataStack defaultStack].managedObjectContext;
-//    NoteEntry *newSharedNote = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:context];
-//    
-//    newSharedNote.title = @"Note";
-//    newSharedNote.body = self.contentText;
-//    newSharedNote.date = [NSDate date];
-//    
-//    NSError *error;
-//    [context save:&error];
-//    
-//    
-//}
 //
 //- (NSArray *)configurationItems {
 //    // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
