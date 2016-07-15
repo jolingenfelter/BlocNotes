@@ -31,7 +31,25 @@
     self.navBar.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.navBar];
     
-    NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_navBar, _titleTextField);
+    self.titleTextField = [[UITextField alloc] init];
+    self.titleTextField.placeholder = @"Title goes here...";
+    self.titleTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.titleTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.titleTextField];
+    
+    UIView *separator = [[UIView alloc] init];
+    separator.backgroundColor = [UIColor blackColor];
+    separator.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview: separator];
+    
+    self.bodyTextView = [[UITextView alloc] init];
+    self.bodyTextView.text = @"Write your note...";
+    self.bodyTextView.delegate = self;
+    self.bodyTextView.tag = 0;
+    self.bodyTextView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.bodyTextView];
+    
+    NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_navBar, _titleTextField, separator, _bodyTextView);
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_navBar]|" options:kNilOptions metrics:nil views:viewDictionary]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.navBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:60]];
@@ -40,6 +58,16 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleTextField]|" options:kNilOptions metrics:nil views:viewDictionary]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.titleTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.titleTextField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:60]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[separator]|" options:kNilOptions metrics:nil views:viewDictionary]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:separator attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleTextField attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:separator attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0.5]];
+
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bodyTextView]|" options:kNilOptions metrics:nil views:viewDictionary]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:separator attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+
 
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelWasPressed)];
@@ -53,25 +81,6 @@
 
     self.inputItem = [[NSExtensionItem alloc] init];
     self.outputItem = [[NSExtensionItem alloc] init];
-}
-
-- (void) createTitleTextField {
-    self.titleTextField = [[UITextField alloc] init];
-    self.titleTextField.placeholder = @"Title goes here...";
-    self.titleTextField.leftViewMode = UITextFieldViewModeAlways;
-    self.titleTextField.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.titleTextField];
-    
-}
-
-- (void) createBodyTextView {
-    self.bodyTextView = [[UITextView alloc] init];
-    self.bodyTextView.text = @"Write your note...";
-    self.bodyTextView.delegate = self;
-    self.bodyTextView.tag = 0;
-    self.bodyTextView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.bodyTextView];
-    
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
