@@ -12,13 +12,12 @@
 
 @interface ShareViewController () <UITextViewDelegate>
 
-@property(nonatomic, strong) NSExtensionContext *extensionContext;
 @property(nonatomic, strong) NSExtensionItem *inputItem;
 @property(nonatomic, strong) NSExtensionItem *outputItem;
 
 @property(nonatomic, strong) UINavigationBar *navBar;
-@property (nonatomic, strong) UITextView *bodyTextView;
-@property (nonatomic, strong) UITextField *titleTextField;
+@property(nonatomic, strong) UITextView *bodyTextView;
+@property(nonatomic, strong) UITextField *titleTextField;
 
 @end
 
@@ -58,8 +57,8 @@
     NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_navBar, _titleTextField, separator, _bodyTextView);
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_navBar]|" options:kNilOptions metrics:nil views:viewDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_navBar]|" options:kNilOptions metrics:nil views:viewDictionary]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.navBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:60]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.navBar attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleTextField]|" options:kNilOptions metrics:nil views:viewDictionary]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.titleTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
@@ -85,9 +84,10 @@
 
     [self.navBar setItems:@[navigationItem]];
     
-    self.extensionContext = [[NSExtensionContext alloc] init];
     self.inputItem = [[NSExtensionItem alloc] init];
     self.outputItem = [[NSExtensionItem alloc] init];
+    
+    self.bodyTextView.text = self.inputItem.attachments.firstObject;
 }
 
 
@@ -134,25 +134,19 @@
 - (void) saveWasPressed {
 //    NSExtensionItem *inputItem = self.extensionContext.inputItems.firstObject;
 //    NSExtensionItem *outputItem = [inputItem copy];
-//    outputItem.attributedContentText = [[NSAttributedString alloc] initWithString:self.contentText attributes:nil];
+//    outputItem.attributedContentText = [[NSAttributedString alloc] initWithString:inputItem.attributedContentText attributes:nil];
 //    NSArray *outputItems = @[outputItem];
 //    [self.extensionContext completeRequestReturningItems:outputItems completionHandler:nil];
 //    
-//    NSManagedObjectContext *context = [CoreDataStack defaultStack].managedObjectContext;
-//    NoteEntry *newSharedNote = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:context];
-//    
-//    newSharedNote.title = newSharedNote.title;
-//    newSharedNote.body = newSharedNote.body;
-//    newSharedNote.date = [NSDate date];
-//    
-//    NSError *error;
-//    [context save:&error];
+    NSManagedObjectContext *context = [CoreDataStack defaultStack].managedObjectContext;
+    NoteEntry *newSharedNote = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:context];
+    
+    newSharedNote.title = self.titleTextField.text;
+    newSharedNote.body = self.bodyTextView.text;
+    newSharedNote.date = [NSDate date];
+    
+    NSError *error;
+    [context save:&error];
 }
-
-//
-//- (NSArray *)configurationItems {
-//    // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-//    return @[];
-//}
 
 @end
