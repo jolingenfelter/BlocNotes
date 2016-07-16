@@ -15,7 +15,7 @@
 @property (nonatomic, strong) UITextView *bodyTextView;
 @property (nonatomic, strong) UITextField *titleTextField;
 
-@property (nonatomic, strong)  UITapGestureRecognizer *longPress;
+@property (nonatomic, strong)  UITapGestureRecognizer *tap;
 
 @end
 
@@ -81,9 +81,9 @@
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     
-    self.longPress = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToBeginEditing:)];
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToBeginEditing:)];
     self.longPress.cancelsTouchesInView = NO;
-    [self.bodyTextView addGestureRecognizer:self.longPress];
+    [self.bodyTextView addGestureRecognizer:self.tap];
     
     if (self.bodyTextView != nil) {
         self.bodyTextView.editable = NO;
@@ -145,6 +145,8 @@
         textView.textColor = [UIColor lightGrayColor];
     }
     [textView resignFirstResponder];
+    self.bodyTextView.editable = NO;
+    self.bodyTextView.dataDetectorTypes = UIDataDetectorTypeAll;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
