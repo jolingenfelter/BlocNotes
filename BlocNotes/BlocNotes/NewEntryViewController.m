@@ -82,7 +82,6 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToBeginEditing:)];
-    self.longPress.cancelsTouchesInView = NO;
     [self.bodyTextView addGestureRecognizer:self.tap];
     
     if (self.bodyTextView != nil) {
