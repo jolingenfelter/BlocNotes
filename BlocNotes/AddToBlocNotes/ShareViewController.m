@@ -6,14 +6,12 @@
 //  Copyright © 2016 JoLingenfelter. All rights reserved.
 //
 
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "ShareViewController.h"
 #import "CoreDataStack.h"
 #import "NoteEntry.h"
 
 @interface ShareViewController () <UITextViewDelegate>
-
-@property(nonatomic, strong) NSExtensionItem *inputItem;
-@property(nonatomic, strong) NSExtensionItem *outputItem;
 
 @property(nonatomic, strong) UINavigationBar *navBar;
 @property(nonatomic, strong) UITextView *bodyTextView;
@@ -84,11 +82,17 @@
 
     [self.navBar setItems:@[navigationItem]];
     
-    self.inputItem = [[NSExtensionItem alloc] init];
-    self.outputItem = [[NSExtensionItem alloc] init];
-    
-    self.bodyTextView.text = self.inputItem.attachments.firstObject;
-}
+    for (NSExtensionItem *item in self.extensionContext.inputItems) {
+        for (NSItemProvider *provider in item.attachments) {
+            if ([provider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePlainText]) {
+                [provider loadItemForTypeIdentifier:(NSString *)kUTTypePlainText options:nil completionHandler:^(id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        self.bodyTextView.text = (NSString *)item;
+                    }];
+                }];
+            }
+        }
+    }}
 
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -132,12 +136,8 @@
 }
 
 - (void) saveWasPressed {
-//    NSExtensionItem *inputItem = self.extensionContext.inputItems.firstObject;
-//    NSExtensionItem *outputItem = [inputItem copy];
-//    outputItem.attributedContentText = [[NSAttributedString alloc] initWithString:inputItem.attributedContentText attributes:nil];
-//    NSArray *outputItems = @[outputItem];
-//    [self.extensionContext completeRequestReturningItems:outputItems completionHandler:nil];
-//    
+    [self.extensionContext completeRequestReturningItems:nil completionHandler:nil];
+    
     NSManagedObjectContext *context = [CoreDataStack defaultStack].managedObjectContext;
     NoteEntry *newSharedNote = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:context];
     
