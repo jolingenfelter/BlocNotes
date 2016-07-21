@@ -91,8 +91,17 @@
                     }];
                 }];
             }
+            
+            if ([provider hasItemConformingToTypeIdentifier:(NSString *)kUTTypeURL]) {
+                [provider loadItemForTypeIdentifier:(NSString *)kUTTypeURL options:nil completionHandler:^(id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                         self.titleTextField.text = ((NSURL *)item).absoluteString;
+                    }];
+                }];
+            }
         }
-    }}
+    }
+}
 
 
 - (void) viewWillAppear:(BOOL)animated {
