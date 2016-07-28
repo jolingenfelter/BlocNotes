@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E617EAF1D497D5E00A39F4A /* Preprocessor.js in Resources */ = {isa = PBXBuildFile; fileRef = 9E617EAE1D497D5E00A39F4A /* Preprocessor.js */; };
 		9E6E93E91D370B7D00181BED /* BlocNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E79726E1D172FF900CC0B1E /* BlocNotes.xcdatamodeld */; };
 		9E6E93EA1D37156500181BED /* NewEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */; };
 		9E7972641D172FF900CC0B1E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972631D172FF900CC0B1E /* main.m */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		9E47C9F31D29F95800B4EAD3 /* BlocNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlocNotes.entitlements; sourceTree = "<group>"; };
+		9E617EAE1D497D5E00A39F4A /* Preprocessor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Preprocessor.js; sourceTree = "<group>"; };
 		9E72D9DF1D29DEEB00F65145 /* AddToBlocNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AddToBlocNotes.entitlements; sourceTree = "<group>"; };
 		9E79725F1D172FF900CC0B1E /* BlocNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7972631D172FF900CC0B1E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				9E72D9DF1D29DEEB00F65145 /* AddToBlocNotes.entitlements */,
 				9EEC3EC11D26FEE8001753BE /* ShareViewController.h */,
 				9EEC3EC21D26FEE8001753BE /* ShareViewController.m */,
+				9E617EAE1D497D5E00A39F4A /* Preprocessor.js */,
 				9EEC3EC41D26FEE8001753BE /* MainInterface.storyboard */,
 				9EEC3EC71D26FEE8001753BE /* Info.plist */,
 			);
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EEC3EC61D26FEE8001753BE /* MainInterface.storyboard in Resources */,
+				9E617EAF1D497D5E00A39F4A /* Preprocessor.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

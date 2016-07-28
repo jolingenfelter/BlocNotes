@@ -99,6 +99,26 @@
                     }];
                 }];
             }
+            
+            if ([provider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
+                [provider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *jsDict, NSError *error) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        NSDictionary *jsPreprocessingResults= jsDict[NSExtensionJavaScriptPreprocessingResultsKey];
+                        NSString *selectedText = jsPreprocessingResults[@"selection"];
+                        NSString *pageTitle = jsPreprocessingResults[@"title"];
+                        NSString *pageSource = jsPreprocessingResults[@"pageSource"];
+                        if ([selectedText length] > 0) {
+                            self.bodyTextView.text = selectedText;
+                        } else if ([pageSource length] > 0) {
+                            self.bodyTextView.text = pageSource;
+                        }
+                       
+                        if ([pageTitle length] > 0) {
+                            self.titleTextField.text = pageTitle;
+                        }
+                    }];
+                }];
+            }
         }
     }
 }
