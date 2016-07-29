@@ -106,11 +106,11 @@
                         NSDictionary *jsPreprocessingResults= jsDict[NSExtensionJavaScriptPreprocessingResultsKey];
                         NSString *selectedText = jsPreprocessingResults[@"selection"];
                         NSString *pageTitle = jsPreprocessingResults[@"title"];
-                        NSString *pageSource = jsPreprocessingResults[@"pageSource"];
+                        NSString *paragraphText = jsPreprocessingResults[@"paragraphText"];
                         if ([selectedText length] > 0) {
                             self.bodyTextView.text = selectedText;
-                        } else if ([pageSource length] > 0) {
-                            self.bodyTextView.text = pageSource;
+                        } else if ([paragraphText length] > 0) {
+                            self.bodyTextView.text = paragraphText;
                         }
                        
                         if ([pageTitle length] > 0) {

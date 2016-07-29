@@ -2,7 +2,14 @@ var MyPreprocessor = function() {};
 
 MyPreprocessor.prototype = {
 run: function(arguments) {
-    arguments.completionFunction({"URL": document.URL, "pageSource": document.documentElement.outerHTML, "title": document.title, "selection": window.getSelection().toString()});
+    var paragraphText = '';
+    var elements = document.getElementsByTagName('p');
+    
+    for (var i = 0; i < elements.length; i++) {
+        paragraphText += elements[i].textContent + "\n\n";
+    }
+    
+    arguments.completionFunction({"URL": document.URL, "title": document.title, "selection": window.getSelection().toString(), "paragraphText": paragraphText});
 }
 };
 
