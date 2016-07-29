@@ -35,13 +35,12 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataDidChangeNotification:) name:NSPersistentStoreCoordinatorStoresDidChangeNotification  object:[[CoreDataStack defaultStack] persistentStoreCoordinator]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
-//- (void) viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSPersistentStoreCoordinatorStoresDidChangeNotification object:[[CoreDataStack defaultStack] persistentStoreCoordinator]];
-//}
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -144,7 +143,6 @@
     }
 }
 
-
 - (void) controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     switch (type) {
         case NSFetchedResultsChangeInsert:
@@ -164,10 +162,10 @@
     [self.tableView endUpdates];
 }
 
-- (void) dataDidChangeNotification:(NSNotification *)notification {
-    NSLog(@"Data did change");
+- (void) didBecomeActive:(NSNotification *)notification {
+    [self.fetchedResultsController performFetch:nil];
+    [self.tableView reloadData];
 }
-
 
 
 
