@@ -10,10 +10,12 @@
 #import "NoteEntry.h"
 #import "CoreDataStack.h"
 
-@interface NewEntryViewController () <UITextViewDelegate>
+@interface NewEntryViewController () <UITextViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UITextView *bodyTextView;
 @property (nonatomic, strong) UITextField *titleTextField;
+
+@property (nonatomic, strong)  UITapGestureRecognizer *tap;
 
 @end
 
@@ -78,7 +80,29 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:separator attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bodyTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToBeginEditing:)];
+    [self.bodyTextView addGestureRecognizer:self.tap];
+    
+    if (self.bodyTextView != nil) {
+        self.bodyTextView.editable = NO;
+        self.bodyTextView.dataDetectorTypes = UIDataDetectorTypeAll;
+    }
 
+    
+}
+
+- (void) tapToBeginEditing: (UIGestureRecognizer *) gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateRecognized) {
+        if (!self.bodyTextView.editable) {
+            self.bodyTextView.editable = YES;
+            self.bodyTextView.dataDetectorTypes = UIDataDetectorTypeNone;
+            [self.bodyTextView becomeFirstResponder];
+        } else {
+            self.bodyTextView.editable = NO;
+            self.bodyTextView.dataDetectorTypes = UIDataDetectorTypeAll;
+        }
+    }
     
 }
 
@@ -120,6 +144,8 @@
         textView.textColor = [UIColor lightGrayColor];
     }
     [textView resignFirstResponder];
+    self.bodyTextView.editable = NO;
+    self.bodyTextView.dataDetectorTypes = UIDataDetectorTypeAll;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
