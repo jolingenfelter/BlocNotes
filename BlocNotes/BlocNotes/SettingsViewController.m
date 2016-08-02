@@ -51,7 +51,7 @@
 }
 
 - (void) doneWasPressed {
-    [self.presentingViewController dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 @end
