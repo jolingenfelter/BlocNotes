@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UISwitch *iCloudSwitch;
 @property (nonatomic, strong) UILabel *iCloudLabel;
+@property (nonatomic, strong) NSUserDefaults *defaults;
 
 @end
 
@@ -40,9 +41,9 @@
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneWasPressed)];
     self.navigationItem.rightBarButtonItem = doneButton;
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:@"SwitchState"]) {
-        self.iCloudSwitch.on = [defaults boolForKey:@"SwitchState"];
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    if ([self.defaults objectForKey:@"SwitchState"]) {
+        self.iCloudSwitch.on = [self.defaults boolForKey:@"SwitchState"];
     }
     
 }
@@ -53,11 +54,10 @@
 }
 
 - (void) iCloudSwitchState {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([self.iCloudSwitch isOn]) {
-        [defaults setBool:YES forKey:@"SwitchState"];
+        [self.defaults setBool:YES forKey:@"SwitchState"];
     } else {
-        [defaults setBool:NO forKey:@"SwitchState"];
+        [self.defaults setBool:NO forKey:@"SwitchState"];
     }
     
 }
