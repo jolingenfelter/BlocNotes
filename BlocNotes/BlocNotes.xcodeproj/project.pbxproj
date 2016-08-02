@@ -20,6 +20,7 @@
 		9E7972861D173AD200CC0B1E /* NoteEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972841D173AD200CC0B1E /* NoteEntry.m */; };
 		9E7972891D184E5D00CC0B1E /* NoteEntryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */; };
 		9E79728C1D18558F00CC0B1E /* NewEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */; };
+		9EAFB0CF1D50EC6B00FF134B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAFB0CE1D50EC6B00FF134B /* SettingsViewController.m */; };
 		9EDB0AAB1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EDB0AAA1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m */; };
 		9EEC3EC61D26FEE8001753BE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EEC3EC41D26FEE8001753BE /* MainInterface.storyboard */; };
 		9EEC3ECA1D26FEE8001753BE /* AddToBlocNotes.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9EEC3EBF1D26FEE8001753BE /* AddToBlocNotes.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -73,6 +74,8 @@
 		9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteEntryListViewController.m; path = ../NoteEntryListViewController.m; sourceTree = "<group>"; };
 		9E79728A1D18558F00CC0B1E /* NewEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEntryViewController.h; sourceTree = "<group>"; };
 		9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEntryViewController.m; sourceTree = "<group>"; };
+		9EAFB0CD1D50EC6B00FF134B /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		9EAFB0CE1D50EC6B00FF134B /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		9EDB0AA81D1B21B20096D188 /* BlocNotes 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BlocNotes 2.xcdatamodel"; sourceTree = "<group>"; };
 		9EDB0AA91D1B58DB0096D188 /* NoteEntry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NoteEntry+CoreDataProperties.h"; path = "../NoteEntry+CoreDataProperties.h"; sourceTree = "<group>"; };
 		9EDB0AAA1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NoteEntry+CoreDataProperties.m"; path = "../NoteEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				9E79727D1D1734DA00CC0B1E /* CoreDataStack.m */,
 				9E7972651D172FF900CC0B1E /* AppDelegate.h */,
 				9E7972661D172FF900CC0B1E /* AppDelegate.m */,
+				9EAFB0CD1D50EC6B00FF134B /* SettingsViewController.h */,
+				9EAFB0CE1D50EC6B00FF134B /* SettingsViewController.m */,
 				9E7972711D172FF900CC0B1E /* Assets.xcassets */,
 				9E7972731D172FF900CC0B1E /* LaunchScreen.storyboard */,
 				9E7972761D172FF900CC0B1E /* Info.plist */,
@@ -222,6 +227,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
 						};
 					};
 					9EEC3EBE1D26FEE8001753BE = {
@@ -283,6 +291,7 @@
 				9E79727E1D1734DA00CC0B1E /* CoreDataStack.m in Sources */,
 				9E7972671D172FF900CC0B1E /* AppDelegate.m in Sources */,
 				9E7972641D172FF900CC0B1E /* main.m in Sources */,
+				9EAFB0CF1D50EC6B00FF134B /* SettingsViewController.m in Sources */,
 				9E7972891D184E5D00CC0B1E /* NoteEntryListViewController.m in Sources */,
 				9EDB0AAB1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m in Sources */,
 				9E7972861D173AD200CC0B1E /* NoteEntry.m in Sources */,

@@ -10,6 +10,7 @@
 #import "CoreDataStack.h"
 #import "NoteEntry.h"
 #import "NewEntryViewController.h"
+#import "SettingsViewController.h"
 
 
 @interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate>
@@ -26,6 +27,12 @@
     self.title = @"Notes";
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addWasPressed)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsWasPressed)];
+    UIFont *customFont = [UIFont fontWithName:@"Helvetica" size:24.0];
+    NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
+    [settingsButton setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = settingsButton;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
@@ -115,6 +122,12 @@
 
 - (void) controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
+}
+
+- (void) settingsWasPressed {
+    SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
