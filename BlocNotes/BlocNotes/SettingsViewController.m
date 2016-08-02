@@ -29,6 +29,7 @@
     
     self.iCloudSwitch = [[UISwitch alloc] init];
     self.iCloudSwitch.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.iCloudSwitch addTarget:self action:@selector(iCloudSwitchState) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.iCloudSwitch];
 
     [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.iCloudSwitch attribute:NSLayoutAttributeCenterX relatedBy:0 toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
@@ -39,6 +40,11 @@
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneWasPressed)];
     self.navigationItem.rightBarButtonItem = doneButton;
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"SwitchState"]) {
+        self.iCloudSwitch.on = [defaults boolForKey:@"SwitchState"];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,7 +52,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) iCloudSwitchOn {
+- (void) iCloudSwitchState {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([self.iCloudSwitch isOn]) {
+        [defaults setBool:YES forKey:@"SwitchState"];
+    } else {
+        [defaults setBool:NO forKey:@"SwitchState"];
+    }
     
 }
 
