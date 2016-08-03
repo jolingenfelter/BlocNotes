@@ -10,9 +10,13 @@
 #import "CoreDataStack.h"
 #import "NoteEntry.h"
 #import "NewEntryViewController.h"
+#import "SearchResultsTableViewController.h"
 
 
-@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate>
+@interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate, UISearchResultsUpdating>
+
+@property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic, strong) SearchResultsTableViewController *resultsTableViewController;
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
@@ -30,12 +34,30 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
     [self.fetchedResultsController performFetch:nil];
+    
+    [self createSearchController];
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    NSString *searchText = self.searchController.searchBar.text;
+    
+    if (searchText) {
+        [self updateSearchResultsForSearchController:self.searchController];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void) createSearchController {
+    self.resultsTableViewController = [[SearchResultsTableViewController alloc] init];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableViewController];
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchResultsUpdater = self;
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
 }
 
 - (void) dealloc {
@@ -60,8 +82,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     NoteEntry *noteEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -167,30 +188,18 @@
     [self.tableView reloadData];
 }
 
+# pragma mark - Searching
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *searchText = searchController.searchBar.text;
+    NSString *noteTitleAttribute = @"title";
+    NSString *noteBodyAttribute = @"body";
+    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", noteTitleAttribute, searchText, noteBodyAttribute, searchText];
+    
+    NSArray *searchResults = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:searchPredicate];
+    
+    self.resultsTableViewController.filteredList = searchResults;
+    [self.resultsTableViewController.tableView reloadData];
+}
 
 @end
