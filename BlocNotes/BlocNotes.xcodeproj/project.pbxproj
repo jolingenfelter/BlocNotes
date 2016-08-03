@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E617EAF1D497D5E00A39F4A /* Preprocessor.js in Resources */ = {isa = PBXBuildFile; fileRef = 9E617EAE1D497D5E00A39F4A /* Preprocessor.js */; };
+		9E6E93E91D370B7D00181BED /* BlocNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E79726E1D172FF900CC0B1E /* BlocNotes.xcdatamodeld */; };
+		9E6E93EA1D37156500181BED /* NewEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */; };
 		9E7972641D172FF900CC0B1E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972631D172FF900CC0B1E /* main.m */; };
 		9E7972671D172FF900CC0B1E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972661D172FF900CC0B1E /* AppDelegate.m */; };
 		9E7972701D172FF900CC0B1E /* BlocNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E79726E1D172FF900CC0B1E /* BlocNotes.xcdatamodeld */; };
@@ -19,9 +22,41 @@
 		9E79728C1D18558F00CC0B1E /* NewEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79728B1D18558F00CC0B1E /* NewEntryViewController.m */; };
 		9EB3863A1D2EF91B00285732 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EB386391D2EF91B00285732 /* SearchResultsTableViewController.m */; };
 		9EDB0AAB1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EDB0AAA1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m */; };
+		9EEC3EC61D26FEE8001753BE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EEC3EC41D26FEE8001753BE /* MainInterface.storyboard */; };
+		9EEC3ECA1D26FEE8001753BE /* AddToBlocNotes.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9EEC3EBF1D26FEE8001753BE /* AddToBlocNotes.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9EEC3ED91D28693F001753BE /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEC3EC21D26FEE8001753BE /* ShareViewController.m */; };
+		9EEC3EDA1D286946001753BE /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E79727D1D1734DA00CC0B1E /* CoreDataStack.m */; };
+		9EEC3EDB1D286C64001753BE /* NoteEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7972841D173AD200CC0B1E /* NoteEntry.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9EEC3EC81D26FEE8001753BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E7972571D172FF900CC0B1E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9EEC3EBE1D26FEE8001753BE;
+			remoteInfo = AddToBlocNotes;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9EEC3ECE1D26FEE8001753BE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9EEC3ECA1D26FEE8001753BE /* AddToBlocNotes.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		9E47C9F31D29F95800B4EAD3 /* BlocNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlocNotes.entitlements; sourceTree = "<group>"; };
+		9E617EAE1D497D5E00A39F4A /* Preprocessor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Preprocessor.js; sourceTree = "<group>"; };
+		9E72D9DF1D29DEEB00F65145 /* AddToBlocNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AddToBlocNotes.entitlements; sourceTree = "<group>"; };
 		9E79725F1D172FF900CC0B1E /* BlocNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7972631D172FF900CC0B1E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9E7972651D172FF900CC0B1E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -44,6 +79,11 @@
 		9EDB0AA81D1B21B20096D188 /* BlocNotes 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BlocNotes 2.xcdatamodel"; sourceTree = "<group>"; };
 		9EDB0AA91D1B58DB0096D188 /* NoteEntry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NoteEntry+CoreDataProperties.h"; path = "../NoteEntry+CoreDataProperties.h"; sourceTree = "<group>"; };
 		9EDB0AAA1D1B58DB0096D188 /* NoteEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NoteEntry+CoreDataProperties.m"; path = "../NoteEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
+		9EEC3EBF1D26FEE8001753BE /* AddToBlocNotes.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AddToBlocNotes.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EEC3EC11D26FEE8001753BE /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		9EEC3EC21D26FEE8001753BE /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		9EEC3EC51D26FEE8001753BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		9EEC3EC71D26FEE8001753BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +95,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9EEC3EBC1D26FEE8001753BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -62,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				9E7972611D172FF900CC0B1E /* BlocNotes */,
+				9EEC3EC01D26FEE8001753BE /* AddToBlocNotes */,
 				9E7972601D172FF900CC0B1E /* Products */,
 				9E79727F1D17368000CC0B1E /* CoreData.framework */,
 			);
@@ -71,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				9E79725F1D172FF900CC0B1E /* BlocNotes.app */,
+				9EEC3EBF1D26FEE8001753BE /* AddToBlocNotes.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +127,7 @@
 		9E7972611D172FF900CC0B1E /* BlocNotes */ = {
 			isa = PBXGroup;
 			children = (
+				9E47C9F31D29F95800B4EAD3 /* BlocNotes.entitlements */,
 				9E7972871D184E5D00CC0B1E /* NoteEntryListViewController.h */,
 				9E7972881D184E5D00CC0B1E /* NoteEntryListViewController.m */,
 				9EDB0AA91D1B58DB0096D188 /* NoteEntry+CoreDataProperties.h */,
@@ -109,6 +159,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9EEC3EC01D26FEE8001753BE /* AddToBlocNotes */ = {
+			isa = PBXGroup;
+			children = (
+				9E72D9DF1D29DEEB00F65145 /* AddToBlocNotes.entitlements */,
+				9EEC3EC11D26FEE8001753BE /* ShareViewController.h */,
+				9EEC3EC21D26FEE8001753BE /* ShareViewController.m */,
+				9E617EAE1D497D5E00A39F4A /* Preprocessor.js */,
+				9EEC3EC41D26FEE8001753BE /* MainInterface.storyboard */,
+				9EEC3EC71D26FEE8001753BE /* Info.plist */,
+			);
+			path = AddToBlocNotes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,15 +182,34 @@
 				9E79725B1D172FF900CC0B1E /* Sources */,
 				9E79725C1D172FF900CC0B1E /* Frameworks */,
 				9E79725D1D172FF900CC0B1E /* Resources */,
+				9EEC3ECE1D26FEE8001753BE /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9EEC3EC91D26FEE8001753BE /* PBXTargetDependency */,
 			);
 			name = BlocNotes;
 			productName = BlocNotes;
 			productReference = 9E79725F1D172FF900CC0B1E /* BlocNotes.app */;
 			productType = "com.apple.product-type.application";
+		};
+		9EEC3EBE1D26FEE8001753BE /* AddToBlocNotes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9EEC3ECD1D26FEE8001753BE /* Build configuration list for PBXNativeTarget "AddToBlocNotes" */;
+			buildPhases = (
+				9EEC3EBB1D26FEE8001753BE /* Sources */,
+				9EEC3EBC1D26FEE8001753BE /* Frameworks */,
+				9EEC3EBD1D26FEE8001753BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AddToBlocNotes;
+			productName = AddToBlocNotes;
+			productReference = 9EEC3EBF1D26FEE8001753BE /* AddToBlocNotes.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -140,6 +222,21 @@
 				TargetAttributes = {
 					9E79725E1D172FF900CC0B1E = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 2K6RX929EU;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					9EEC3EBE1D26FEE8001753BE = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 2K6RX929EU;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -157,6 +254,7 @@
 			projectRoot = "";
 			targets = (
 				9E79725E1D172FF900CC0B1E /* BlocNotes */,
+				9EEC3EBE1D26FEE8001753BE /* AddToBlocNotes */,
 			);
 		};
 /* End PBXProject section */
@@ -168,6 +266,15 @@
 			files = (
 				9E7972751D172FF900CC0B1E /* LaunchScreen.storyboard in Resources */,
 				9E7972721D172FF900CC0B1E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EEC3EBD1D26FEE8001753BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EEC3EC61D26FEE8001753BE /* MainInterface.storyboard in Resources */,
+				9E617EAF1D497D5E00A39F4A /* Preprocessor.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +297,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9EEC3EBB1D26FEE8001753BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EEC3EDB1D286C64001753BE /* NoteEntry.m in Sources */,
+				9EEC3EDA1D286946001753BE /* CoreDataStack.m in Sources */,
+				9EEC3ED91D28693F001753BE /* ShareViewController.m in Sources */,
+				9E6E93E91D370B7D00181BED /* BlocNotes.xcdatamodeld in Sources */,
+				9E6E93EA1D37156500181BED /* NewEntryViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9EEC3EC91D26FEE8001753BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9EEC3EBE1D26FEE8001753BE /* AddToBlocNotes */;
+			targetProxy = 9EEC3EC81D26FEE8001753BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9E7972731D172FF900CC0B1E /* LaunchScreen.storyboard */ = {
@@ -199,6 +326,14 @@
 				9E7972741D172FF900CC0B1E /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		9EEC3EC41D26FEE8001753BE /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EEC3EC51D26FEE8001753BE /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -292,10 +427,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BlocNotes/BlocNotes.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BlocNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jolingenfelter.BlocNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lingenfelter.BlocNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -303,10 +442,42 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BlocNotes/BlocNotes.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BlocNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jolingenfelter.BlocNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lingenfelter.BlocNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		9EEC3ECB1D26FEE8001753BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AddToBlocNotes/AddToBlocNotes.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = AddToBlocNotes/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lingenfelter.BlocNotes.AddToBlocNotes;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9EEC3ECC1D26FEE8001753BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AddToBlocNotes/AddToBlocNotes.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = AddToBlocNotes/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lingenfelter.BlocNotes.AddToBlocNotes;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -327,6 +498,15 @@
 			buildConfigurations = (
 				9E79727A1D172FF900CC0B1E /* Debug */,
 				9E79727B1D172FF900CC0B1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9EEC3ECD1D26FEE8001753BE /* Build configuration list for PBXNativeTarget "AddToBlocNotes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EEC3ECB1D26FEE8001753BE /* Debug */,
+				9EEC3ECC1D26FEE8001753BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

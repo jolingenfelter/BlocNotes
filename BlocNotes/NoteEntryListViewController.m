@@ -40,10 +40,15 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     NSString *searchText = self.searchController.searchBar.text;
+    
     if (searchText) {
         [self updateSearchResultsForSearchController:self.searchController];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void) createSearchController {
@@ -53,6 +58,10 @@
     self.searchController.searchResultsUpdater = self;
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -155,7 +164,6 @@
     }
 }
 
-
 - (void) controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     switch (type) {
         case NSFetchedResultsChangeInsert:
@@ -175,8 +183,12 @@
     [self.tableView endUpdates];
 }
 
-# pragma mark - Searching
+- (void) didBecomeActive:(NSNotification *)notification {
+    [self.fetchedResultsController performFetch:nil];
+    [self.tableView reloadData];
+}
 
+# pragma mark - Searching
 
 - (void) updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSString *searchText = searchController.searchBar.text;
@@ -188,30 +200,6 @@
     
     self.resultsTableViewController.filteredList = searchResults;
     [self.resultsTableViewController.tableView reloadData];
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end
