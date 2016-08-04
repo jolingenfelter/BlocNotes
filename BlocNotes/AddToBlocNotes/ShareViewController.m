@@ -167,7 +167,7 @@
 - (void) saveWasPressed {
     [self.extensionContext completeRequestReturningItems:nil completionHandler:nil];
     
-    NSManagedObjectContext *context = [CoreDataStack defaultStack].managedObjectContext;
+    NSManagedObjectContext *context = [CoreDataStack defaultStack].localDataManagedObjectContext;
     NoteEntry *newSharedNote = [NSEntityDescription insertNewObjectForEntityForName:@"NoteEntry" inManagedObjectContext:context];
     
     newSharedNote.title = self.titleTextField.text;

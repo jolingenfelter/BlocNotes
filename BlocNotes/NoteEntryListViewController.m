@@ -16,6 +16,8 @@
 @interface NoteEntryListViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSArray *compiledData;
+@property (nonatomic, strong) NSFetchedResultsController *localDataFetchedResultsController;
 
 @end
 
@@ -38,6 +40,7 @@
     
     [self registerForiCloudNotifications];
     
+    [self.localDataFetchedResultsController performFetch:nil];
     [self.fetchedResultsController performFetch:nil];
 }
 
@@ -94,21 +97,31 @@
 
 #pragma mark - Table view data source
 
+- (NSArray *) compiledData {
+    
+    NSArray* iCloudData = [self.fetchedResultsController fetchedObjects];
+    NSArray* extensionData = [self.localDataFetchedResultsController fetchedObjects];
+    
+    _compiledData = [iCloudData arrayByAddingObjectsFromArray:extensionData];
+    
+    return _compiledData;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return self.fetchedResultsController.sections.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];;
+    
+    return self.compiledData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    NoteEntry *noteEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NoteEntry *noteEntry = [self.compiledData objectAtIndex:indexPath.row];
     
     if (noteEntry.title) {
         cell.textLabel.text = noteEntry.title;
@@ -140,6 +153,20 @@
     return _fetchedResultsController;
 }
 
+- (NSFetchedResultsController *) localDataFetchedResultsController {
+    if (_localDataFetchedResultsController != nil) {
+        return _localDataFetchedResultsController;
+    }
+    
+    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    NSFetchRequest *fetchRequest = [self entryListFetchRequest];
+    
+    _localDataFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.localDataManagedObjectContext sectionNameKeyPath:@"sectionName" cacheName:nil];
+    _localDataFetchedResultsController.delegate = self;
+    
+    return _localDataFetchedResultsController;
+}
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
 }
@@ -147,8 +174,12 @@
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NoteEntry *note = [self.fetchedResultsController objectAtIndexPath: indexPath];
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    
     [[coreDataStack managedObjectContext] deleteObject:note];
+    [[coreDataStack localDataManagedObjectContext] deleteObject:note];
+    
     [coreDataStack saveContext];
+    [coreDataStack localDataSaveContext];
 }
 
 - (void) addWasPressed {
@@ -174,7 +205,7 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newEntry];
     [self presentViewController:navigationController animated:YES completion: nil];
     
-    newEntry.noteEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    newEntry.noteEntry = [self.compiledData objectAtIndex:indexPath.row];
 }  
 
 - (void) controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
@@ -214,20 +245,8 @@
 }
 
 - (void) didBecomeActive:(NSNotification *)notification {
-    [self.fetchedResultsController performFetch:nil];
+    [self.localDataFetchedResultsController performFetch:nil];
     [self.tableView reloadData];
-}
-
-- (void) iCloudSetup {
-    
-}
-
-- (void) migrateToiCloud {
-    
-}
-
-- (void) migrateFromiCloud {
-    
 }
 
 

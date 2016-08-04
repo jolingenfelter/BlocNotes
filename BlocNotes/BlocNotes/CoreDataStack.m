@@ -14,6 +14,9 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+@synthesize localDataManagedObjectContext = _localDataManagedObjectContext;
+@synthesize localDataPersistentStoreCoordinator = _localDataPersistentStoreCoordinator;
+
 + (instancetype) defaultStack {
     static CoreDataStack *defaultStack;
     static dispatch_once_t onceToken;
@@ -39,6 +42,20 @@
     }
 }
 
+- (void) localDataSaveContext {
+    NSError *error = nil;
+    NSManagedObjectContext *localDataManagedObjectContext = self.localDataManagedObjectContext;
+    if (localDataManagedObjectContext != nil) {
+        if ([localDataManagedObjectContext hasChanges] && ![localDataManagedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+
+}
+
 #pragma mark - Core Data stack
 
 // Returns the managed object context for the application.
@@ -55,6 +72,23 @@
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     return _managedObjectContext;
+}
+
+- (NSManagedObjectContext *) localDataManagedObjectContext {
+    
+    if (_localDataManagedObjectContext != nil) {
+        return _localDataManagedObjectContext;
+    }
+
+    
+    NSPersistentStoreCoordinator *coordinator = [self localDataPersistentStoreCoordinator];
+    if (coordinator != nil) {
+        _localDataManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [_localDataManagedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+
+    
+    return _localDataManagedObjectContext;
 }
 
 // Returns the managed object model for the application.
@@ -90,6 +124,24 @@
   
     
     return _persistentStoreCoordinator;
+}
+
+- (NSPersistentStoreCoordinator *) localDataPersistentStoreCoordinator {
+    
+    if (_localDataPersistentStoreCoordinator != nil) {
+        return _localDataPersistentStoreCoordinator;
+    }
+    
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"BlocNotes.sqlite"];
+    
+    NSError *error = nil;
+    
+    _localDataPersistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    
+    [_localDataPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
+
+    
+    return _localDataPersistentStoreCoordinator;
 }
 
 #pragma mark - Application's Documents directory
