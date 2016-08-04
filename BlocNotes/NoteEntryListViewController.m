@@ -36,7 +36,45 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
+    [self registerForiCloudNotifications];
+    
     [self.fetchedResultsController performFetch:nil];
+}
+
+- (void) registerForiCloudNotifications {
+    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSPersistentStoreCoordinatorStoresWillChangeNotification object:coreDataStack.managedObjectContext.persistentStoreCoordinator queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [coreDataStack.managedObjectContext performBlock:^{
+            if ([coreDataStack.managedObjectContext hasChanges]) {
+                NSError *saveError;
+                if (![coreDataStack.managedObjectContext save:&saveError]) {
+                    NSLog(@"Save error: %@", saveError);
+                }
+            } else {
+                [coreDataStack.managedObjectContext reset];
+            }
+        
+        }];
+    
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSPersistentStoreCoordinatorStoresDidChangeNotification object:coreDataStack.managedObjectContext queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [coreDataStack.managedObjectContext performBlock:^{
+            [coreDataStack.managedObjectContext reset];
+        }];
+        
+        NSLog(@"StoresDidChange");
+        [self.tableView reloadData];
+        NSLog(@"TableView has been reloaded");
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coreDataStack.managedObjectContext queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [coreDataStack.managedObjectContext performBlock:^{
+            [coreDataStack.managedObjectContext mergeChangesFromContextDidSaveNotification:note];
+        }];
+    }];
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated {
