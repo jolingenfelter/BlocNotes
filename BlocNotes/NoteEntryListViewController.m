@@ -59,7 +59,7 @@
     
     }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSPersistentStoreCoordinatorStoresDidChangeNotification object:coreDataStack.managedObjectContext queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSPersistentStoreCoordinatorStoresDidChangeNotification object:coreDataStack.managedObjectContext.persistentStoreCoordinator queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         [coreDataStack.managedObjectContext performBlock:^{
             [coreDataStack.managedObjectContext reset];
         }];
@@ -69,7 +69,7 @@
         NSLog(@"TableView has been reloaded");
     }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coreDataStack.managedObjectContext queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coreDataStack.managedObjectContext.persistentStoreCoordinator queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         [coreDataStack.managedObjectContext performBlock:^{
             [coreDataStack.managedObjectContext mergeChangesFromContextDidSaveNotification:note];
         }];
