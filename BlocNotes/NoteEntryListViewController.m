@@ -180,7 +180,17 @@
     [self.tableView reloadData];
 }
 
+- (void) iCloudSetup {
+    
+}
 
+- (void) migrateToiCloud {
+    
+}
+
+- (void) migrateFromiCloud {
+    
+}
 
 
 
