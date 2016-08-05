@@ -100,9 +100,9 @@
 - (NSArray *) compiledData {
     
     NSArray* iCloudData = [self.fetchedResultsController fetchedObjects];
-    NSArray* extensionData = [self.localDataFetchedResultsController fetchedObjects];
+    NSArray* localData = [self.localDataFetchedResultsController fetchedObjects];
     
-    _compiledData = [iCloudData arrayByAddingObjectsFromArray:extensionData];
+    _compiledData = [iCloudData arrayByAddingObjectsFromArray:localData];
     
     return _compiledData;
 }
@@ -248,9 +248,6 @@
     [self.localDataFetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }
-
-
-
 
 
 
